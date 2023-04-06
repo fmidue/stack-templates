@@ -30,6 +30,8 @@ extra-deps:
   - patch-0.0.8.1
   - reflex-0.9.0.0
 
+allow-newer: true
+
 {-# START_FILE Setup.hs #-}
 import Distribution.Simple
 main = defaultMain
