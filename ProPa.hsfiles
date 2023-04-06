@@ -1,0 +1,64 @@
+{-# START_FILE package.yaml #-}
+name: {{name}}
+version: 0.1.0.0
+extra-source-files:
+  - README.md
+build-tools: []
+ghc-options:
+  - -Wall
+  - -Wincomplete-uni-patterns
+  - -Wincomplete-record-updates
+  - -Widentities
+  - -Wredundant-constraints
+dependencies:
+  - HUnit
+  - QuickCheck
+  - array
+  - base
+  - codeworld-api
+  - containers
+  - text
+library:
+  source-dirs: src
+  exposed-modules: []
+
+{-# START_FILE stack.yaml #-}
+resolver: lts-20.17
+extra-deps:
+  - codeworld-api-0.8.1
+  - commutative-semigroups-0.1.0.0
+  - patch-0.0.8.1
+  - reflex-0.9.0.0
+
+{-# START_FILE Setup.hs #-}
+import Distribution.Simple
+main = defaultMain
+
+{-# START_FILE README.md #-}
+# {{name}}
+Basic project setup for the lecture "Programmierparadigmen" (summer term 2023)
+
+- Install necessary dependencies: `stack build --only-dependencies`
+- Place new files inside the `src` folder
+- Load single file with `stack ghci -- src/Filename.hs`
+- For smooth integration with Haskell plugins, e.g. in VSCode, all modules must have a unique name (ghc expects the module name to be identical to the file name)
+
+{-# START_FILE src/CodeWorldExample.hs #-}
+-- | An example module using CodeWorld
+
+module CodeWorldExample where
+
+import CodeWorld
+
+{-| Draw a blank (white) page -}
+main :: IO ()
+main = drawingOf blank
+
+
+{-# START_FILE src/PureHaskellExample.hs #-}
+-- | An example module for plain Haskell
+
+module PlainHaskellExample where
+
+f :: Int -> Int
+f x = x + 1
