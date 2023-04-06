@@ -55,7 +55,7 @@ main :: IO ()
 main = drawingOf blank
 
 
-{-# START_FILE src/PureHaskellExample.hs #-}
+{-# START_FILE src/PlainHaskellExample.hs #-}
 -- | An example module for plain Haskell
 
 module PlainHaskellExample where
