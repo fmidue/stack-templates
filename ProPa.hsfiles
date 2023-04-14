@@ -5,11 +5,17 @@ extra-source-files:
   - README.md
 build-tools: []
 ghc-options:
-  - -Wall
-  - -Wincomplete-uni-patterns
-  - -Wincomplete-record-updates
+  - -Wunused-local-binds
+  - -Wunused-matches
+  - -Wunused-pattern-binds
+
+  - -Wdeprecations
+  - -Wempty-enumerations
   - -Widentities
-  - -Wredundant-constraints
+  - -Wname-shadowing
+  - -Woverflowed-literals
+  - -Woverlapping-patterns
+  - -Wtabs
 dependencies:
   - HUnit
   - QuickCheck
