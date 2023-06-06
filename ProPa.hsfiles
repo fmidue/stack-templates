@@ -24,6 +24,7 @@ dependencies:
   - codeworld-api
   - containers
   - text
+  - ghc-heap-view
 library:
   source-dirs: src
   exposed-modules: []
@@ -35,8 +36,15 @@ extra-deps:
   - commutative-semigroups-0.1.0.0
   - patch-0.0.8.1
   - reflex-0.9.0.0
+  - ghc-heap-view-0.6.4
 
 allow-newer: true
+
+{-# START_FILE .ghci #-}
+:def! setPrintHeapDepth \x -> return $ ":def! printHeap \\x -> return $ \"performGC >> GHC.HeapView.buildHeapGraph (" ++ x ++ ") () (GHC.HeapView.asBox (\" ++ x ++ \")) >>= putStrLn . GHC.HeapView.ppHeapGraph\""
+
+:m + System.Mem
+:setPrintHeapDepth 1000
 
 {-# START_FILE Setup.hs #-}
 import Distribution.Simple
