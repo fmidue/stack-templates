@@ -25,6 +25,7 @@ dependencies:
   - containers
   - text
   - ghc-heap-view
+  - pretty-simple
 library:
   source-dirs: src
   exposed-modules: []
