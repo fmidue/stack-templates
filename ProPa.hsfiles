@@ -30,7 +30,7 @@ library:
   exposed-modules: []
 
 {-# START_FILE stack.yaml #-}
-resolver: lts-20.17
+resolver: lts-21.25
 extra-deps:
   - codeworld-api-0.8.1
   - commutative-semigroups-0.1.0.0
@@ -52,7 +52,7 @@ main = defaultMain
 
 {-# START_FILE README.md #-}
 # {{name}}
-Basic project setup for the lecture "Programmierparadigmen" (summer term 2023)
+Basic project setup for the lecture "Programmierparadigmen" (summer term 2024)
 
 - Install necessary dependencies: `stack build --only-dependencies`
 - Place new files inside the `src` folder
