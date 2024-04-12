@@ -67,9 +67,9 @@ module CodeWorldExample where
 
 import CodeWorld
 
-{-| Draw a blank (white) page -}
+{-| Draw something -}
 main :: IO ()
-main = drawingOf blank
+main = drawingOf (circle 3)
 
 
 {-# START_FILE src/PlainHaskellExample.hs #-}
