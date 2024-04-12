@@ -47,6 +47,8 @@ allow-newer: true
 :m + System.Mem
 :setPrintHeapDepth 1000
 
+:m + Text.Pretty.Simple
+
 {-# START_FILE Setup.hs #-}
 import Distribution.Simple
 main = defaultMain
