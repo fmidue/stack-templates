@@ -59,7 +59,7 @@ Basic project setup for the lecture "Programmierparadigmen" (summer term 2024)
 - Install necessary dependencies: `stack build --only-dependencies`
 - If on Linux or macOS, don't forget `chmod go-w .`
 - Place new files inside the `src` folder
-- Load single file with `stack ghci -- src/Filename.hs`
+- Load single file with `stack ghci -- src/Filename.hs`, then run contents from it, e.g., by entering `main`
 - For smooth integration with Haskell plugins, e.g. in VSCode, all modules must have a unique name (ghc expects the module name to be identical to the file name)
 
 {-# START_FILE src/CodeWorldExample.hs #-}
