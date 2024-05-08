@@ -75,6 +75,8 @@ main = drawingOf (circle 3)
 
 
 {-# START_FILE src/PlainHaskellExample.hs #-}
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
+{-# HLINT ignore "Use :" #-}
 -- | An example module for plain Haskell
 
 module PlainHaskellExample where
