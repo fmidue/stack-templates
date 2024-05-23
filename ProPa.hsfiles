@@ -8,7 +8,6 @@ ghc-options:
   - -Wunused-local-binds
   - -Wunused-matches
   - -Wunused-pattern-binds
-
   - -Wdeprecations
   - -Wempty-enumerations
   - -Widentities
@@ -28,6 +27,8 @@ dependencies:
   - pretty-simple
 library:
   source-dirs: src
+  default-extensions:
+    - PartialTypeSignatures
   exposed-modules: []
 
 {-# START_FILE stack.yaml #-}
