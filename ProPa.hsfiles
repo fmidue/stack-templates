@@ -25,10 +25,13 @@ dependencies:
   - text
   - ghc-heap-view
   - pretty-simple
+  - pretty-tree
 library:
   source-dirs: src
   default-extensions:
     - PartialTypeSignatures
+    - DeriveGeneric
+    - DeriveAnyClass
   exposed-modules: []
 
 {-# START_FILE stack.yaml #-}
@@ -38,7 +41,8 @@ extra-deps:
   - patch-0.0.8.2
   - reflex-0.9.3.0
   - ghc-heap-view-0.6.4.1
-
+  - git: https://github.com/owestphal/pretty-tree
+    commit: 9b26f302002ac6e4a93347420ac06dfd1cbcc0f8
 allow-newer: true
 
 {-# START_FILE .ghci #-}
@@ -84,3 +88,96 @@ module PlainHaskellExample where
 
 f :: Int -> Int
 f x = x + 1
+
+{-# START_FILE src/Helpers/Drawable.hs #-}
+{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE DefaultSignatures #-}
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE FlexibleContexts #-}
+
+module Helpers.Drawable (
+  Generic,
+  Drawable,
+  drawStructure,
+  drawVerticalStructure,
+  ) where
+
+import GHC.Generics
+import Data.Tree
+import Data.Tree.Pretty
+import Data.Ratio
+
+class Drawable t where
+  toTree :: t -> Tree String
+
+  default toTree :: (Generic t, GDrawable (Rep t)) => t -> Tree String
+  toTree = head . gtoTree . from
+
+drawStructure :: Drawable t => t -> String
+drawStructure = drawTree . toTree
+
+drawVerticalStructure :: Drawable t => t -> String
+drawVerticalStructure = drawVerticalTree . toTree
+
+instance Drawable Bool where
+  toTree x = Node (show x) []
+
+instance Drawable Int where
+  toTree x = Node (show x) []
+
+instance Drawable Integer where
+  toTree x = Node (show x) []
+
+instance Show a => Drawable (Ratio a) where
+  toTree x = Node (show x) []
+
+instance Drawable Float where
+  toTree x = Node (show x) []
+
+instance Drawable Double where
+  toTree x = Node (show x) []
+
+instance Drawable Char where
+  toTree x = Node (show x) []
+
+instance {-#OVERLAPPING#-} Drawable String where
+  toTree x = Node (show x) []
+
+instance (Drawable a) => Drawable [a] where
+  toTree xs = Node "[]" (map toTree xs)
+
+instance (Drawable a) => Drawable (Maybe a) where
+
+instance (Drawable a, Drawable b) => Drawable (a, b) where
+
+instance (Drawable a, Drawable b, Drawable c) => Drawable (a, b, c) where
+
+instance (Drawable a, Drawable b, Drawable c, Drawable d) => Drawable (a, b, c, d) where
+
+-- generic instances
+class GDrawable f where
+  gtoTree :: f t -> [Tree String]
+
+instance GDrawable f => GDrawable (D1 c f) where
+  gtoTree = gtoTree . unM1
+
+instance GDrawable f => GDrawable (S1 c f) where
+  gtoTree = gtoTree . unM1
+
+instance (Constructor c, GDrawable f) => GDrawable (C1 c f) where
+  gtoTree (M1 x) = [Node (conName @c (M1 x)) (gtoTree x)]
+
+instance (GDrawable f, GDrawable g) => GDrawable (f :+: g) where
+  gtoTree (L1 x) = gtoTree x
+  gtoTree (R1 y) = gtoTree y
+
+instance (GDrawable f, GDrawable g) => GDrawable (f :*: g) where
+  gtoTree (x :*: y) = gtoTree x ++ gtoTree y
+
+instance Drawable t => GDrawable (K1 i t) where
+  gtoTree (K1 x) = [toTree x]
+
+instance GDrawable U1 where
+  gtoTree U1 = []
