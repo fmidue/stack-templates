@@ -30,6 +30,7 @@ library:
   source-dirs: src
   default-extensions:
     - PartialTypeSignatures
+    - TupleSections
     - DeriveGeneric
     - DeriveAnyClass
   exposed-modules: []
