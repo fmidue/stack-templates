@@ -101,6 +101,7 @@ f x = x + 1
 module Helpers.Drawable (
   Generic,
   Drawable,
+  printTree,
   drawStructure,
   drawVerticalStructure,
   ) where
@@ -109,6 +110,9 @@ import GHC.Generics
 import Data.Tree
 import Data.Tree.Pretty
 import Data.Ratio
+
+printTree :: Drawable t => t -> IO ()
+printTree = putStr . drawVerticalStructure
 
 class Drawable t where
   toTree :: t -> Tree String
@@ -150,6 +154,8 @@ instance (Drawable a) => Drawable [a] where
   toTree xs = Node "[]" (map toTree xs)
 
 instance (Drawable a) => Drawable (Maybe a) where
+
+instance (Drawable a, Drawable b) => Drawable (Either a b) where
 
 instance (Drawable a, Drawable b) => Drawable (a, b) where
 
