@@ -153,15 +153,15 @@ instance {-#OVERLAPPING#-} Drawable String where
 instance (Drawable a) => Drawable [a] where
   toTree xs = Node "[]" (map toTree xs)
 
-instance (Drawable a) => Drawable (Maybe a) where
+instance (Drawable a) => Drawable (Maybe a)
 
-instance (Drawable a, Drawable b) => Drawable (Either a b) where
+instance (Drawable a, Drawable b) => Drawable (Either a b)
 
-instance (Drawable a, Drawable b) => Drawable (a, b) where
+instance (Drawable a, Drawable b) => Drawable (a, b)
 
-instance (Drawable a, Drawable b, Drawable c) => Drawable (a, b, c) where
+instance (Drawable a, Drawable b, Drawable c) => Drawable (a, b, c)
 
-instance (Drawable a, Drawable b, Drawable c, Drawable d) => Drawable (a, b, c, d) where
+instance (Drawable a, Drawable b, Drawable c, Drawable d) => Drawable (a, b, c, d)
 
 -- generic instances
 class GDrawable f where
