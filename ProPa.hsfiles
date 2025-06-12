@@ -1,6 +1,6 @@
 {-# START_FILE package.yaml #-}
 name: {{name}}
-version: 0.3.0.0
+version: 0.3.0.1
 extra-source-files:
   - README.md
 build-tools: []
@@ -38,7 +38,10 @@ library:
 {-# START_FILE stack.yaml #-}
 resolver: lts-21.25
 extra-deps:
-  - codeworld-api-0.8.1
+  - git: https://github.com/fmidue/codeworld
+    commit: 6ed1d0886988773dbc6b92f91666ccc100e63622
+    subdirs:
+      - codeworld-api
   - patch-0.0.8.4
   - reflex-0.9.3.3
   - ghc-heap-view-0.6.4.1
